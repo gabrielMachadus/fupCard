@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Pessoa;
+import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -37,7 +38,7 @@ public class ControllerPessoa {
         return clientes;
     }
     
-     public static ArrayList<Pessoa> RemoverPessoa(ArrayList<Pessoa> clientes){
+     public  ArrayList<Pessoa> RemoverPessoa(ArrayList<Pessoa> clientes){
         Pessoa p = new Pessoa();
         int codigo = Integer.parseInt(JOptionPane.showInputDialog(mostrarLista(clientes)));
         p = clientes.get(codigo);
@@ -45,16 +46,17 @@ public class ControllerPessoa {
         return clientes;
     }
      
-     public static String mostrarLista(ArrayList<Pessoa> clientes){
-        String dados="";
+     public  ArrayList<String> mostrarLista(ArrayList<Pessoa> clientes){
+        ArrayList<String> dados = new ArrayList<String>();
         int i =0 ;
          for(Pessoa p: clientes){
-            dados +="\nIndice:"+i+ p.toString();
+            dados.add(i +" - "+ p.getNome());
             i++;
         }
         return dados;
      }
-     public static ArrayList<Pessoa> preencherLista(){
+     
+     public  ArrayList<Pessoa> preencherLista(){
          ArrayList<Pessoa> lista = new ArrayList<>();
          Pessoa p0 = new Pessoa("João Bernardo dos Santos", "Rua X, 1263, POA - RS", "833.543.000-63", "74455541559", "(51)342-999-999");
          Pessoa p1 = new Pessoa("Carlos Miguel Nascimento", "Rua Y, 1523, POA - RS", "312.000.234-63", "04431241559", "(51)654-999-999");

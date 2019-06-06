@@ -39,7 +39,12 @@ public class vCadCartao extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jRadioButton1.setText("Débito");
         buttonGroup1.add(jRadioButton1);
@@ -60,7 +65,7 @@ public class vCadCartao extends javax.swing.JFrame {
 
         jLabel4.setText("Bandeira:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Elo", "Visa", "Master", "American", "Hiper", "Diners" }));
 
         jLabel5.setText("Número:");
 
@@ -114,6 +119,10 @@ public class vCadCartao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        jRadioButton1.setSelected(true);
+    }//GEN-LAST:event_formWindowOpened
 
     
 

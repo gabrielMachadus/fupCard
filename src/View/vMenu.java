@@ -36,7 +36,7 @@ public class vMenu extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setAutoRequestFocus(false);
 
         jMenu1.setText("Cadastros");
 

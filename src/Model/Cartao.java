@@ -24,17 +24,17 @@ public class Cartao {
      */
     public String mostraBandeira(int codigo){
         switch(codigo){
-            case 0:
-                return "Elo";
             case 1:
-                return "Visa";
+                return "Elo";
             case 2:
-                return "Mastercard";
+                return "Visa";
             case 3:
-                return "American Express";
+                return "Mastercard";
             case 4:
-                return "Hipercard";
+                return "American Express";
             case 5:
+                return "Hipercard";
+            case 6:
                 return "Diners Club";
         }
         return "Selecione uma Bandeira Válida!"; 

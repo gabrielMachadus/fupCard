@@ -90,6 +90,11 @@ public class vCadPessoa extends javax.swing.JFrame {
         });
 
         jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Alterar");
 
@@ -99,11 +104,7 @@ public class vCadPessoa extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Cadastro de Cliente");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
@@ -185,7 +186,7 @@ public class vCadPessoa extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton1)
@@ -233,15 +234,61 @@ public class vCadPessoa extends javax.swing.JFrame {
         } catch (ParseException e) {
                 e.printStackTrace();
         }
+        
+          //Faz formatação do campo RG
+        try {
+                jFormattedTextField3.setFormatterFactory(new DefaultFormatterFactory(
+                        new MaskFormatter("###########")));
+                
+        } catch (ParseException e) {
+                e.printStackTrace();
+        }
         geraPessoaTela();
+        bloqueiaComponentes();
     }//GEN-LAST:event_formComponentShown
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(jButton1.getText().equals("Salvar")){
+            jButton1.setText("Cadastrar");
+            //FAZ AÇÃO DE SALVAR
+            bloqueiaComponentes();
+            JOptionPane.showMessageDialog(this, "Dados cadastrados!!");
+            jButton2.setEnabled(true);
+            jButton4.setEnabled(true);
+        }else if(jButton1.getText().equals("Cadastrar")){
+            jButton1.setText("Salvar");
+            liberaComponentes();
+            jButton2.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
    void geraPessoaTela(){
        Pessoa p = new Pessoa();
        jTextField1.setText(p.getNome());
        jFormattedTextField1.setText(p.getCpf());
        jFormattedTextField2.setText(p.getTelefone());
+       jFormattedTextField3.setText(p.getRg());
+       jTextField5.setText(p.getEndereco());
    }
+   
+   void bloqueiaComponentes(){
+       jTextField1.setEnabled(false);
+       jFormattedTextField1.setEnabled(false);
+       jFormattedTextField2.setEnabled(false);
+       jFormattedTextField3.setEnabled(false);
+       jTextField5.setEnabled(false);
+   }
+   
+    void liberaComponentes(){
+       jTextField1.setEnabled(true);
+       jFormattedTextField1.setEnabled(true);
+       jFormattedTextField2.setEnabled(true);
+       jFormattedTextField3.setEnabled(true);
+       jTextField5.setEnabled(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
