@@ -11,8 +11,8 @@ package Model;
  */
 public class Pessoa {
    
-   private String nome = "Nome indefinido";
-   private String endereco = "Sem enredeço";
+   private String nome = "ex: João Carlos Amadeu";
+   private String endereco = "ex: Rua exemplo, 300, Inconfidencia, Porto do Sol - RS";
    private String cpf = "000.000.000-00";
    private String rg="11234567890";
    private String telefone="(00)000-000-000";

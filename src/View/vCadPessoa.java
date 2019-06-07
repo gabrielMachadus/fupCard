@@ -101,6 +101,11 @@ public class vCadPessoa extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -131,21 +136,29 @@ public class vCadPessoa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jFormattedTextFieldCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldEndereco)
+                                    .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                                     .addComponent(jFormattedTextFieldTelefone)
                                     .addComponent(jFormattedTextFieldRg, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2))
+                                        .addGap(10, 10, 10)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jFormattedTextFieldCpf)
+                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -212,6 +225,9 @@ public class vCadPessoa extends javax.swing.JFrame {
         int indice = jListClientes.getSelectedIndex();
         Pessoa p = clientes.get(indice);
         carregaPessoaTela(p);        
+        jButtonAlterar.setEnabled(true);
+        jButtonCadastrar.setEnabled(false);
+        jButtonExcluir.setEnabled(true);
     }//GEN-LAST:event_jListClientesMouseClicked
 
     private void jFormattedTextFieldTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldTelefoneFocusGained
@@ -251,6 +267,8 @@ public class vCadPessoa extends javax.swing.JFrame {
         }
         geraPessoaGenericaTela();
         bloqueiaComponentes();
+        jButtonAlterar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
         preencheJListGenerica();
     }//GEN-LAST:event_formComponentShown
 
@@ -276,15 +294,27 @@ public class vCadPessoa extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         int codigoExcluir = jListClientes.getSelectedIndex();
-        Pessoa p = clientes.get(codigoExcluir);
-        //0-sim 1-não 2-cancelar x-1
-        int x = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o cliente " + p.getNome()+" ? ");
-        if(x==0){
-            clientes.remove(codigoExcluir);
-            atualizaJList();
-            geraPessoaGenericaTela();
+        if(codigoExcluir!=-1){
+            Pessoa p = clientes.get(codigoExcluir);
+            //0-sim 1-não 2-cancelar x-1
+            int x = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o cliente " + p.getNome()+" ? ");
+            if(x==0){
+                clientes.remove(codigoExcluir);
+                atualizaJList();
+                geraPessoaGenericaTela();
+            }    
+        }else{
+            JOptionPane.showMessageDialog(this, "Lista vazia ou item não selecionado");
         }
+        
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        bloqueiaBtnJList();
+        liberaComponentes();
+        jButtonCadastrar.setText("Salvar");
+        jButtonCadastrar.setEnabled(true);
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
 
    void geraPessoaGenericaTela(){
        Pessoa p = new Pessoa();
@@ -336,10 +366,24 @@ public class vCadPessoa extends javax.swing.JFrame {
     void atualizaJList(){
         ArrayList<String> nomes =  cp.mostrarLista(clientes);
         DefaultListModel model = new DefaultListModel();
-        for (String s : nomes) {
+        if(nomes.size()>0){
+            JOptionPane.showMessageDialog(this, "Tamanho Lista:"+nomes.size());
+            
+            for (String s : nomes) {
+                jListClientes.setModel(model);
+                model.addElement(s);
+            }
+        }else{
             jListClientes.setModel(model);
-            model.addElement(s);
+            model.addElement("");
+            bloqueiaBtnJList();
         }
+    }
+    
+    void bloqueiaBtnJList(){
+        jListClientes.setEnabled(false);
+        jButtonAlterar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
     }
     
     private ArrayList<Pessoa> clientes = new ArrayList<Pessoa>();

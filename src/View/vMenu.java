@@ -5,12 +5,15 @@
  */
 package View;
 
+import Model.Pessoa;
+import java.util.ArrayList;
+
 /**
  *
  * @author Gabriel Machado
  */
 public class vMenu extends javax.swing.JFrame {
-
+    public  ArrayList<Pessoa> clientesMenu = new ArrayList<Pessoa>();
     /**
      * Creates new form vMenu
      */
