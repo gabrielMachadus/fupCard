@@ -56,6 +56,8 @@ public class ControllerPessoa {
         return dados;
      }
      
+     
+     
      public  ArrayList<Pessoa> preencherLista(){
          ArrayList<Pessoa> lista = new ArrayList<>();
          Pessoa p0 = new Pessoa("João Bernardo dos Santos", "Rua X, 1263, POA - RS", "833.543.000-63", "74455541559", "(51)342-999-999");

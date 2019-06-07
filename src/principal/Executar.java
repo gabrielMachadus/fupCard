@@ -18,5 +18,4 @@ public class Executar {
         vMenu menu = new vMenu();
         menu.setVisible(true);
     }
-    
 }
